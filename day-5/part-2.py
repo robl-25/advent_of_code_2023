@@ -51,6 +51,23 @@ def grouper(iterable, n, fillvalue=None):
     return zip_longest(*args, fillvalue=fillvalue)
 
 
+def location_to_seed(location, maps, seeds):
+    item = location
+
+    for map in maps:
+        current_item = item
+
+        for src_range, dst_range in map:
+            if current_item in dst_range:
+                item = src_range.start + (item - dst_range.start)
+                break
+
+    for range_seed in seeds:
+        if item in range_seed:
+            return True
+
+    return False
+
 with open('day-5/part-2.txt') as f:
     lines = f.read().splitlines()
 
@@ -64,18 +81,13 @@ for start, length in grouper([int(i) for i in next(lines).split(' ')[1:]], 2):
 
 next(lines)
 maps = parse_maps(lines)
-min_seed_value = -1
-current_index = 0
+found_seed = False
+location = 0
 
-for seed in chain(*seeds):
-    print(f'Proccessed: {((current_index/total_length) * 100):.3f}%', end='\r')
-    location = seed_value(seed, maps)
-    current_index += 1
+while (not found_seed):
+    found_seed = location_to_seed(location, maps[::-1], seeds)
 
-    if min_seed_value == -1:
-        min_seed_value = location
-    elif min_seed_value > location:
-        min_seed_value = location
+    if not found_seed:
+        location += 1
 
-print()
-print(min_seed_value)
+print(location)
