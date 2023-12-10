@@ -1,31 +1,33 @@
 CUBES = {
-  'red': 12,
-  'green': 13,
-  'blue': 14,
+    'red': 12,
+    'green': 13,
+    'blue': 14,
 }
 
+
 def parse_game(rounds):
-  for r in rounds:
-      cubes = r.split(', ')
+    for r in rounds:
+        cubes = r.split(', ')
 
-      for cube in cubes:
-        number, color = cube.split(' ')
+        for cube in cubes:
+            number, color = cube.split(' ')
 
-        if int(number) > CUBES[color]:
-          return False
+            if int(number) > CUBES[color]:
+              return False
 
-  return True
+    return True
+
 
 with open('day-2/part-1.txt') as file:
-  result = 0
+    result = 0
 
-  for line in file:
-    line = line.strip()
+    for line in file:
+        line = line.strip()
 
-    game_id = int(line.split(':')[0].split('Game ')[1])
-    rounds = line.split(': ')[1].split('; ')
+        game_id = int(line.split(':')[0].split('Game ')[1])
+        rounds = line.split(': ')[1].split('; ')
 
-    if parse_game(rounds):
-      result += game_id
+        if parse_game(rounds):
+            result += game_id
 
-  print(result)
+    print(result)
