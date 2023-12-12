@@ -88,7 +88,7 @@ def parse_card(line):
     return Hand(cards=int_hand, bid=int(bid))
 
 
-with open('day-7/part-2.txt') as f:
+with open('input.txt') as f:
     lines = f.read().splitlines()
 
 hands = []

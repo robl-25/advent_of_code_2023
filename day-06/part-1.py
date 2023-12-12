@@ -34,7 +34,7 @@ def parse_races(lines):
     return [Race(t, d) for t, d in zip(times, distances)]
 
 
-with open('day-6/part-1.txt') as f:
+with open('input.txt') as f:
     lines = f.read().splitlines()
 
 result = 1

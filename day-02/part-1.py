@@ -18,7 +18,7 @@ def parse_game(rounds):
     return True
 
 
-with open('day-2/part-1.txt') as file:
+with open('input.txt') as file:
     result = 0
 
     for line in file:

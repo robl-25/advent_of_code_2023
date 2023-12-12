@@ -34,7 +34,7 @@ def parse_race(lines):
     return Race(time, distance)
 
 
-with open('day-6/part-2.txt') as f:
+with open('input.txt') as f:
     lines = f.read().splitlines()
 
 race = parse_race(lines)

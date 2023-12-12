@@ -1,4 +1,4 @@
-with open('day-4/part-1.txt') as file:
+with open('input.txt') as file:
     result = 0
 
     for line in file:

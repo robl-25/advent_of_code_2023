@@ -28,7 +28,7 @@ class Digit:
         return False
 
 
-with open('day-3/part-1.txt') as file:
+with open('input.txt') as file:
     matrix = [list(line.strip()) for line in file]
     numbers = []
 

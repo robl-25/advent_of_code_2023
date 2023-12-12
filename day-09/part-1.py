@@ -24,7 +24,7 @@ def find_next(sequence):
     return sum(s[-1] for s in sub_sequences)
 
 
-with open('day-9/input.txt') as f:
+with open('input.txt') as f:
     lines = f.read().splitlines()
 
 sequences = []

@@ -17,7 +17,7 @@ def parse_game(rounds):
     return minimum_cubes['red'] * minimum_cubes['blue'] * minimum_cubes['green']
 
 
-with open('day-2/part-2.txt') as file:
+with open('input.txt') as file:
     result = 0
 
     for line in file:

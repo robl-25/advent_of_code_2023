@@ -35,7 +35,7 @@ def cycle_size(node, graph, instructions):
     return len(path) - cycle_start
 
 
-with open('day-8/part-2.txt') as f:
+with open('input.txt') as f:
     lines = f.read().splitlines()
 
 instructions = list(lines[0])

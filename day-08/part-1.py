@@ -14,7 +14,7 @@ def parse_graph(lines):
     return graph
 
 
-with open('day-8/part-1.txt') as f:
+with open('input.txt') as f:
     lines = f.read().splitlines()
 
 instructions = list(lines[0])

@@ -5,5 +5,5 @@ def get_numbers(line):
     return int(first+last)
 
 
-with open('day-1/day-1.txt') as f:
+with open('input.txt') as f:
     print(sum(get_numbers(line) for line in f))

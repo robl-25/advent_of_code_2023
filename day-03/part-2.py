@@ -73,7 +73,7 @@ def get_gears(matrix):
     return gears
 
 
-with open('day-3/part-2.txt') as file:
+with open('input.txt') as file:
     matrix = [list(line.strip()) for line in file]
     numbers = get_digits(matrix)
     gears = get_gears(matrix)

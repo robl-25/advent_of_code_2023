@@ -40,7 +40,7 @@ def seed_value(seed, maps):
     return item
 
 
-with open('day-5/part-1.txt') as f:
+with open('input.txt') as f:
     lines = f.read().splitlines()
 
 lines = iter(lines)

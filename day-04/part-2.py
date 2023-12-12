@@ -17,7 +17,7 @@ class Card:
         return result
 
 
-with open('day-4/part-2.txt') as file:
+with open('input.txt') as file:
     cards = []
     index = 0
 

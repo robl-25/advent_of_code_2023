@@ -28,7 +28,7 @@ def find_next(sequence):
     return result
 
 
-with open('day-9/input.txt') as f:
+with open('input.txt') as f:
     lines = f.read().splitlines()
 
 sequences = []
