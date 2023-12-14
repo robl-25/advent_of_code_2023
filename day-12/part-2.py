@@ -1,67 +1,64 @@
+from collections import Counter
 from functools import lru_cache
 
 
-def group_equal(iterable):
-    subgroups = []
-
-    g = []
-    for item in iterable:
-        if not g or item == g[0]:
-            g.append(item)
-        else:
-            subgroups.append(g)
-            g = [item]
-
-    if g:
-        subgroups.append(g)
-
-    return subgroups
-
-
-def is_valid(data, mask):
-    return tuple(len(g) for g in group_equal(data) if g[0] == '#') == mask
+FOLDING_FACTOR = 5
 
 
 @lru_cache(maxsize=None)
-def f(sub_data, data, mask, idx):
-    if idx == len(data):
-        if is_valid(sub_data, mask):
-            return 1
+def possibilities(s, mask):
+    if not s and not mask:
+        return 1
 
+    counter = Counter(s)
+
+    if counter.get('#', 0) + counter.get('?', 0) < sum(mask):
         return 0
 
-    next_idx = max(data.find('?', idx + 1), idx + 1)
+    if counter.get('#', 0) > sum(mask):
+        return 0
 
-    if next_idx > len(data):
-        next_idx = len(data)
+    s0 = s[0]
 
-    if data[idx] == '?':
-        case_1 = f(sub_data + '#', data, mask, next_idx)
-        case_2 = f(sub_data + '.', data, mask, next_idx)
+    if s0 == '.':
+        return possibilities(s[1:], mask)
 
-        return case_1 + case_2
+    if s0 == '#':
+        sub_s = s[:mask[0]]
+        sub_counter = Counter(sub_s)
 
-    return f(sub_data + data[idx:next_idx], data, mask, next_idx)
+        working_springs = sub_counter.get('#', 0) + sub_counter.get('?', 0)
 
+        if working_springs < mask[0]:
+            return 0
+
+        if len(s) == mask[0]:
+            last_character = 'EOF'
+        else:
+            last_character = s[mask[0]]
+
+        if last_character not in {'.', '?', 'EOF'}:
+            return 0
+
+        return possibilities(s[mask[0] + 1:], mask[1:])
+
+    return possibilities(s[1:], mask) + possibilities('#' + s[1:], mask)
 
 
 def count_possibilities(line):
     data, mask = line.split(' ')
 
-    mask = tuple(int(i) for i in mask.split(','))
+    data = '?'.join([data] * FOLDING_FACTOR)
+    mask = tuple(int(i) for i in mask.split(',')) * FOLDING_FACTOR
 
-    result = f('', data, mask, 0)
-
-    print(f'{line} => {result}')
-
-    return result
+    return possibilities(data, mask)
 
 
 with open('input.txt') as file:
     lines = file.read().splitlines()
 
 total = 0
-for line in lines:
+for idx, line in enumerate(lines):
     total_line = count_possibilities(line)
     total += total_line
 
