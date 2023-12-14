@@ -81,10 +81,6 @@ def matrix_score(matrix, transpose=False):
 
         mirrors = [mirror for mirror in mirrors if check_line(line, mirror)]
 
-    if len(mirrors) > 1:
-        pp(matrix)
-        print(f'Deu pau => {mirrors}')
-
     if not mirrors:
         return 0
 
