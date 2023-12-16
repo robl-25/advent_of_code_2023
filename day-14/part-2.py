@@ -1,9 +1,8 @@
 import copy
-import time
 from collections.abc import Iterable
 
 
-CYCLE_NUMBER=1_000
+CYCLE_NUMBER=1_000_000_000
 
 
 def roll_rocks_south(matrix):
@@ -99,12 +98,30 @@ with open('input.txt') as file:
     matrix = [list(l) for l in file.read().splitlines()]
 
 
-start = time.time()
-for n in range(CYCLE_NUMBER):
+visited_matrixes = set()
+visited_matrixes_list = []
+
+for i in range(CYCLE_NUMBER):
     cycle_platform(matrix)
 
+    frozen_matrix = tuple(tuple(row) for row in matrix)
+
+    if frozen_matrix in visited_matrixes:
+        break
+    else:
+        visited_matrixes.add(frozen_matrix)
+        visited_matrixes_list.append(frozen_matrix)
+
+
+divisor = visited_matrixes_list.index(frozen_matrix)
+
+cycle_size = len(visited_matrixes_list) - divisor
+tail_size = len(visited_matrixes_list) - cycle_size
+final_idx = ((CYCLE_NUMBER - tail_size) % cycle_size) - 1 + tail_size
+final_matrix = visited_matrixes_list[final_idx]
+
 score = 0
-for i, line in enumerate(matrix):
-    score += line.count('O') * (len(matrix) - i)
+for i, line in enumerate(final_matrix):
+    score += line.count('O') * (len(final_matrix) - i)
 
 print(score)
